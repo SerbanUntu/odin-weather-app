@@ -16,6 +16,10 @@ const monthNames = [
 	'December',
 ]
 
+function getDateHumanName(date) {
+	return `${dayNames[date.getDay()]}, ${date.getDate()} ${monthNames[date.getMonth()]}`
+}
+
 export class API {
 	static rawData
 	static current
@@ -97,7 +101,7 @@ export class API {
 			name: API.rawData.location.name,
 			country: API.rawData.location.country,
 		}
-		API.current.dateText = `${dayNames[API.current.date.getDay()]}, ${API.current.date.getDate()} ${monthNames[API.current.date.getMonth()]}`
+		API.current.dateText = getDateHumanName(API.current.date)
 		API.current.condition = {
 			text: API.rawData.current.condition.text,
 			category: API.getCategoryFromConditionCode(API.rawData.current.condition.code),
@@ -105,5 +109,59 @@ export class API {
 		}
 		API.current.humidity = API.rawData.current.humidity
 		API.current.uv = API.rawData.current.uv
+
+		API.forecast = []
+		API.rawData.forecast.forecastday.forEach((day, dayIndex) => {
+			let currentDay = {}
+			switch (dayIndex) {
+				case 0:
+					currentDay.name = 'Today'
+					break
+				case 1:
+					currentDay.name = 'Tomorrow'
+					break
+				default:
+					currentDay.name = getDateHumanName(new Date(day.date))
+			}
+			currentDay.condition = {
+				text: day.day.condition.text,
+				icon: day.day.condition.icon,
+			}
+			currentDay.temp = {
+				c: day.day.avgtemp_c,
+				f: day.day.avgtemp_f,
+			}
+			currentDay.rain = day.day.daily_chance_of_rain
+			currentDay.uv = day.day.uv
+			currentDay.humidity = day.day.avghumidity
+			currentDay.wind = {
+				kph: day.day.maxwind_kph,
+				mph: day.day.maxwind_mph,
+			}
+			let hours = []
+			day.hour.forEach(hour => {
+				let currentHour = {}
+				currentHour.name = hour.time.split(' ')[1]
+				if (dayIndex === 0 && currentHour.name < API.current.time) return
+				currentHour.condition = {
+					text: hour.condition.text,
+					icon: hour.condition.icon,
+				}
+				currentHour.temp = {
+					c: hour.temp_c,
+					f: hour.temp_f,
+				}
+				currentHour.rain = hour.chance_of_rain
+				currentHour.uv = hour.uv
+				currentHour.humidity = hour.humidity
+				currentHour.wind = {
+					kph: hour.wind_kph,
+					mph: hour.wind_mph,
+				}
+				hours.push(currentHour)
+			})
+			API.forecast.push({ day: currentDay, hours })
+		})
+		console.log(API.forecast)
 	}
 }

@@ -1,15 +1,19 @@
 :root {
-	--light: hsl(0deg 0% 85%);
+	--light: hsl(0deg 0% 90%);
 	--dark: hsl(0deg 0% 20%);
 	--secondary: hsl(0deg 0% 50%);
+	--glass: hsl(0deg 0% 100% / var(--glass-alpha));
+
 	--main: var(--dark);
 
 	--shadow: 2px 2px 5px 2px #00000030;
 	--drop-shadow: 2px 2px 2px #00000030;
+	--glass-alpha: 10%;
 }
 
 body[data-theme="dark"] {
 	--main: var(--light);
+	--glass: hsl(0deg 0% 0% / var(--glass-alpha));
 }
 
 body {
@@ -21,17 +25,11 @@ body {
 	background-image: url(../images/clear-day.jpg);
 	color: var(--main);
 	font-family: "Inter", sans-serif;
+	font-weight: 500;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-main {
-	width: 80vw;
-	max-width: 800px;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+	overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -40,17 +38,23 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
 	font-size: 4rem;
-	font-weight: 300;
 }
 
 h2 {
 	font-size: 2rem;
-	font-weight: 600;
 }
 
 h3 {
 	font-size: 1.5rem;
-	font-weight: 400;
+}
+
+main {
+	width: 80vw;
+	height: 80vh;
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .current-data {
@@ -100,5 +104,39 @@ h3 {
 
 	img {
 		filter: drop-shadow(var(--drop-shadow));
+	}
+}
+
+.forecast-data {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	flex: 1;
+	padding: 2rem;
+	gap: 2rem;
+	border-radius: 1rem;
+	background: var(--glass);
+	backdrop-filter: blur(1rem);
+}
+
+nav {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+}
+
+button {
+	color: inherit;
+}
+
+.hours-button, .days-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	border-bottom: 2px solid transparent;
+	padding: 0;
+
+	&.selected {
+		border-color: var(--main);
 	}
 }

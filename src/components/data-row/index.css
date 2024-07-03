@@ -1,0 +1,20 @@
+table {
+	h2 {
+		font-weight: 300;
+	}
+
+	.data-group h3 {
+		font-weight: 400;
+	}
+
+	.data-group {
+		text-align: center;
+	}
+
+	.data-group .img-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+}
