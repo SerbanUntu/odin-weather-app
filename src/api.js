@@ -1,21 +1,46 @@
+import { Category, Time } from './enums'
+
+const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+]
+
 export class API {
 	static rawData
-	static data
+	static current
+	static days
+	static hours
+	static preferred = {
+		temp: 'c',
+		speed: 'kph',
+	}
 	static key = 'e00f824bfd8e428c976102008240107'
+	static FORECAST_DAYS = 3
 
 	static getCategoryFromConditionCode(code) {
 		switch (code) {
 			case 1000:
-				return 'clear'
+				return Category.CLEAR
 			case 1003:
 			case 1006:
-				return 'cloudy'
+				return Category.CLOUDY
 			case 1087:
 			case 1273:
 			case 1276:
 			case 1279:
 			case 1282:
-				return 'stormy'
+				return Category.STORMY
 			case 1009:
 			case 1030:
 			case 1069:
@@ -25,7 +50,7 @@ export class API {
 			case 1207:
 			case 1249:
 			case 1252:
-				return 'overcast'
+				return Category.OVERCAST
 			case 1066:
 			case 1114:
 			case 1117:
@@ -40,43 +65,45 @@ export class API {
 			case 1258:
 			case 1261:
 			case 1264:
-				return 'snowy'
+				return Category.SNOWY
 			default:
-				return 'rainy'
+				return Category.RAINY
 		}
 	}
 
-	static async fetchRealtimeData(location) {
-		const url = `http://api.weatherapi.com/v1/current.json?key=${API.key}&q=${location}`
+	static async fetchData(location) {
+		const url = `http://api.weatherapi.com/v1/forecast.json?key=${API.key}&q=${location}&days=${API.FORECAST_DAYS}`
 		const response = await fetch(url, { mode: 'cors' })
 		const json = await response.json()
 		API.rawData = json
 		return json
 	}
 
-	static processRealtimeData() {
-		API.data = {}
-		API.data.day = API.rawData.current.is_day === 1
-		API.data.wind = {
+	static processData() {
+		API.current = {}
+		API.current.day = API.rawData.current.is_day === 1 ? Time.DAY : Time.NIGHT
+		API.current.date = new Date(API.rawData.location.localtime.split(' ')[0])
+		API.current.time = API.rawData.location.localtime.split(' ')[1]
+		API.current.wind = {
 			dir: API.rawData.current.wind_dir,
 			kph: API.rawData.current.wind_kph,
 			mph: API.rawData.current.wind_mph,
 		}
-		API.data.temp = {
+		API.current.temp = {
 			c: API.rawData.current.temp_c,
 			f: API.rawData.current.temp_f,
 		}
-		API.data.location = {
+		API.location = {
 			name: API.rawData.location.name,
 			country: API.rawData.location.country,
-			date: new Date(API.rawData.location.localtime.split(' ')[0]),
-			time: API.rawData.location.localtime.split(' ')[1],
 		}
-		API.data.condition = {
+		API.current.dateText = `${dayNames[API.current.date.getDay()]}, ${API.current.date.getDate()} ${monthNames[API.current.date.getMonth()]}`
+		API.current.condition = {
 			text: API.rawData.current.condition.text,
 			category: API.getCategoryFromConditionCode(API.rawData.current.condition.code),
+			icon: API.rawData.current.condition.icon,
 		}
+		API.current.humidity = API.rawData.current.humidity
+		API.current.uv = API.rawData.current.uv
 	}
-
-	// static async fetchForecastData(location) {}
 }

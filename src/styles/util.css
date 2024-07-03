@@ -1,0 +1,25 @@
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.inline-wrapper {
+	* {
+		display: inline;
+	}
+}
+
+.text-semibold {
+	font-weight: 600;
+}
+
+.text-ellipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-wrap: nowrap;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
