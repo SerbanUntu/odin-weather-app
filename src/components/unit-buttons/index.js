@@ -1,6 +1,7 @@
 import './index.css'
 import { API } from '../../api'
 import { DataRow } from '../data-row'
+import { updatePageTitle } from '../..'
 
 const tempButton = document.querySelector('.temp-button')
 const speedButton = document.querySelector('.speed-button')
@@ -33,6 +34,7 @@ tempButton.addEventListener('click', e => {
 	e.preventDefault()
 	selectUnit(API.preferred.temp === 'c' ? 'f' : 'c')
 	DataRow.updateUnits()
+	updatePageTitle()
 })
 
 speedButton.addEventListener('click', e => {

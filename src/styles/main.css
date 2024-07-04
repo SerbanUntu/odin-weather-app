@@ -25,6 +25,13 @@ body[data-image="snowy-day"] {
 	}
 }
 
+body[data-loading="true"] {
+	cursor: wait;
+	* {
+		cursor: wait !important;
+	}
+}
+
 body {
 	width: 100vw;
 	height: 100vh;

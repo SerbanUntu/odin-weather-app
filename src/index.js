@@ -45,6 +45,10 @@ function toggleHours() {
 	forecastMenu.appendChild(table)
 }
 
+export function updatePageTitle() {
+	document.title = `${API.current.temp[API.preferred.temp]}°${API.preferred.temp.toUpperCase()} in ${API.location.name} | WeatherWatch`
+}
+
 function updateDocument() {
 	const currentImage = getImage()
 	document.querySelector('.credits').textContent = `
@@ -60,12 +64,12 @@ function updateDocument() {
 	document.body.dataset.theme = currentImage.theme === Theme.DARK ? 'dark' : 'light'
 	document.body.dataset.image = getImageName()
 	document.body.style.backgroundImage = `url("${currentImage.src}")`
-	document.title = `${API.current.temp[API.preferred.temp]}°${API.preferred.temp.toUpperCase()} in ${API.location.name} | WeatherWatch`
+	updatePageTitle()
 	toggleDays()
 }
 
 export async function onApiFetch(value) {
-	document.body.style.cursor = 'wait'
+	document.body.dataset.loading = true
 	API.fetchData(value)
 		.catch(e => {
 			ErrorMessage.pushError(e)
@@ -75,7 +79,7 @@ export async function onApiFetch(value) {
 			updateDocument()
 		})
 		.finally(() => {
-			document.body.style.cursor = 'auto'
+			document.body.dataset.loading = false
 		})
 }
 
