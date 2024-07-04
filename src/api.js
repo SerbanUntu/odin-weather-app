@@ -80,6 +80,9 @@ export class API {
 	static async fetchData(location) {
 		const url = `http://api.weatherapi.com/v1/forecast.json?key=${API.key}&q=${location}&days=${API.FORECAST_DAYS}`
 		const response = await fetch(url, { mode: 'cors' })
+		if (!response.ok) {
+			throw new Error(response.statusText)
+		}
 		const json = await response.json()
 		API.rawData = json
 		return json

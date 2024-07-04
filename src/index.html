@@ -9,9 +9,10 @@
 		<link
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
 			rel="stylesheet" />
-		<title>Odin Weather App</title>
+		<title>WeatherWatch</title>
 	</head>
 	<body>
+		<div class="error-queue"></div>
 		<main>
 			<div class="current-data">
 				<img class="weather-icon" />
@@ -44,22 +45,23 @@
 					<button class="hours-button">Hours</button>
 				</nav>
 			</div>
-			<div class="unit-buttons">
-				<button class="unit-button temp-button">
-					<h2 class="unit-button-text">
-						<span class="c unit">°C</span>
-						<span class="slash unit">/</span>
-						<span class="f unit">°F</span>
-					</h2>
-				</button>
-				<button class="unit-button speed-button">
-					<h2 class="unit-button-text">
-						<span class="kph unit">kph</span>
-						<span class="slash unit">/</span>
-						<span class="mph unit">mph</span>
-					</h2>
-				</button>
-			</div>
 		</main>
+		<div class="unit-buttons">
+			<button class="unit-button temp-button">
+				<h2 class="unit-button-text">
+					<span class="c unit">°C</span>
+					<span class="slash unit">/</span>
+					<span class="f unit">°F</span>
+				</h2>
+			</button>
+			<button class="unit-button speed-button">
+				<h2 class="unit-button-text">
+					<span class="kph unit">kph</span>
+					<span class="slash unit">/</span>
+					<span class="mph unit">mph</span>
+				</h2>
+			</button>
+		</div>
+		<div class="credits"></div>
 	</body>
 </html>

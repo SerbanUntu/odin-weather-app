@@ -9,11 +9,20 @@
 	--shadow: 2px 2px 5px 1px #00000030;
 	--drop-shadow: 2px 2px 2px #00000030;
 	--glass-alpha: 10%;
+
+	--red: hsl(0deg 70% 40%);
+	--red-lite: hsl(0deg 70% 80%);
 }
 
 body[data-theme="dark"] {
 	--main: var(--light);
 	--glass: hsl(0deg 0% 0% / var(--glass-alpha));
+}
+
+body[data-image="snowy-day"] {
+	.credits {
+		color: black;
+	}
 }
 
 body {
@@ -88,6 +97,7 @@ main {
 
 .input-section {
 	display: flex;
+	align-items: center;
 	width: 100%;
 	gap: 2rem;
 }
@@ -109,6 +119,8 @@ main {
 	padding: 0;
 	border: none;
 	cursor: pointer;
+	width: 3rem;
+	height: 3rem;
 
 	img {
 		filter: drop-shadow(var(--drop-shadow));
@@ -148,4 +160,18 @@ button {
 	&.selected {
 		border-color: var(--main);
 	}
+}
+
+.credits {
+	position: absolute;
+	text-align: center;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	color: white;
+	background: var(--glass);
+	font-weight: 400;
+	backdrop-filter: blur(1rem);
+	padding: 0 0.25rem;
+	border-radius: 9999px;
 }

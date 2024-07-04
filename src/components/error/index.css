@@ -1,0 +1,38 @@
+.error-queue {
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	position: absolute;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 600px;
+}
+
+.error-message {
+	display: flex;
+	gap: 1rem;
+	padding: 1rem 2rem;
+	background: var(--red-lite);
+	color: var(--red);
+	align-items: center;
+	font-weight: 700;
+	border-radius: 9999px;
+	border: 0.25rem solid var(--red);
+	width: 100%;
+}
+
+.close-error-message {
+	flex-shrink: 0;
+	margin-left: auto;
+	border: none;
+	padding: 0;
+	background: none;
+	cursor: pointer;
+	opacity: 0.5;
+
+	&:hover {
+		opacity: 1;
+	}
+}
