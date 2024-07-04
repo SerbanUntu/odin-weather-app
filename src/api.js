@@ -29,8 +29,10 @@ export class API {
 		temp: 'c',
 		speed: 'kph',
 	}
+	static lastQuery = 'Iasi'
 	static key = 'e00f824bfd8e428c976102008240107'
 	static FORECAST_DAYS = 3
+	//TODO Track all other properties
 
 	static getCategoryFromConditionCode(code) {
 		switch (code) {
@@ -142,7 +144,9 @@ export class API {
 			day.hour.forEach(hour => {
 				let currentHour = {}
 				currentHour.name = hour.time.split(' ')[1]
-				if (dayIndex === 0 && currentHour.name < API.current.time) return
+				let forecastHourNumber = Number(currentHour.name.split(':')[0])
+				let currentHourNumber = Number(API.current.time.split(':')[0])
+				if (dayIndex === 0 && forecastHourNumber < currentHourNumber) return
 				currentHour.condition = {
 					text: hour.condition.text,
 					icon: hour.condition.icon,
@@ -162,6 +166,5 @@ export class API {
 			})
 			API.forecast.push({ day: currentDay, hours })
 		})
-		console.log(API.forecast)
 	}
 }

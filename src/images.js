@@ -28,9 +28,9 @@ class Image {
 
 export const images = {
 	'clear-day': new Image(ClearDay, 'Teddy Charti', Theme.LIGHT),
-	'clear-night': new Image(ClearNight, 'Brad Mann', Theme.DARK),
+	'clear-night': new Image(ClearNight, 'Oskar Kadaksoo', Theme.DARK),
 	'cloudy-day': new Image(CloudyDay, 'Kristina Tolmacheva', Theme.LIGHT),
-	'cloudy-night': new Image(CloudyNight, 'Sam Goodgame', Theme.DARK),
+	'cloudy-night': new Image(CloudyNight, 'Andriyko Podilnyk', Theme.DARK),
 	'overcast-day': new Image(OvercastDay, 'Jaime Spaniol', Theme.LIGHT),
 	'overcast-night': new Image(OvercastNight, 'Antoine Barrès', Theme.DARK),
 	'rainy-day': new Image(Rainy, 'Valentin Müller', Theme.DARK),

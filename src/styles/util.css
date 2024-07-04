@@ -44,5 +44,5 @@
 	overflow-y: auto;
 	scrollbar-gutter: stable;
 	scrollbar-width: thin;
-	scrollbar-color: var(--glass) transparent;
+	scrollbar-color: var(--main) transparent;
 }

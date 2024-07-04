@@ -5,6 +5,7 @@ import { API } from './api'
 import { images } from './images'
 import { Category, Theme, Time } from './enums'
 import { DataRow } from './components/data-row'
+import { selectUnit } from './components/unit-buttons'
 
 const input = document.querySelector('input') //TODO make this more semantic
 const searchButton = document.querySelector('.search-button')
@@ -39,8 +40,10 @@ function toggleHours() {
 	forecastMenu.appendChild(table)
 }
 
-async function onApiFetch(value) {
+export async function onApiFetch(value) {
+	document.body.style.cursor = 'wait'
 	await API.fetchData(value)
+	document.body.style.cursor = 'auto'
 	API.processData()
 	const currentImage = getImage()
 	document.querySelector('.weather-icon').src = API.current.condition.icon
@@ -71,5 +74,8 @@ hoursButton.addEventListener('click', e => {
 })
 
 document.body.dataset.theme = 'light'
+
+selectUnit('c')
+selectUnit('kph')
 
 onApiFetch('Iasi')

@@ -6,7 +6,7 @@
 
 	--main: var(--dark);
 
-	--shadow: 2px 2px 5px 2px #00000030;
+	--shadow: 2px 2px 5px 1px #00000030;
 	--drop-shadow: 2px 2px 2px #00000030;
 	--glass-alpha: 10%;
 }
@@ -67,6 +67,14 @@ main {
 	}
 }
 
+.current-weather {
+	overflow: hidden;
+}
+
+.current-condition {
+	text-wrap: nowrap;
+}
+
 .weather-icon {
 	flex-shrink: 0;
 	width: 4rem;
@@ -117,6 +125,7 @@ main {
 	border-radius: 1rem;
 	background: var(--glass);
 	backdrop-filter: blur(1rem);
+	box-shadow: var(--shadow);
 }
 
 nav {
