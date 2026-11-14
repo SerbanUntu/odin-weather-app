@@ -30,7 +30,6 @@ export class API {
 		speed: 'kph',
 	}
 	static lastQuery = 'Iasi'
-	static key = 'e00f824bfd8e428c976102008240107'
 	static FORECAST_DAYS = 3
 	//TODO Track all other properties
 
@@ -78,7 +77,7 @@ export class API {
 	}
 
 	static async fetchData(location) {
-		const url = `https://api.weatherapi.com/v1/forecast.json?key=${API.key}&q=${location}&days=${API.FORECAST_DAYS}`
+		const url = `https://odin-weather-app.serbanuntu1.workers.dev/?q=${location}&days=${API.FORECAST_DAYS}`
 		const response = await fetch(url, { mode: 'cors' })
 		if (!response.ok) {
 			throw new Error(response.statusText)

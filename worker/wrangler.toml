@@ -1,0 +1,4 @@
+name = "odin-weather-app"
+main = "index.js"
+compatibility_date = "2026-11-13"
+preview_urls = false
